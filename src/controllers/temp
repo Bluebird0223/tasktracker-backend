@@ -1,0 +1,68 @@
+
+// back model
+//     (2207 * powerSupply) +
+//     (1103 * ON_OFF) +
+//     (2207 * sixteen_A) +
+//     (1428 * zemoteDimming) +
+//     (1817 * triacDimming) +
+//     (2142 * fanDimming) +
+//     (1817 * curtain) +
+//     (649 * twoWaySwitchInput) +
+//     (11151 * lightFanModule) +
+//     (8113 * lightModule_2_ZemoteDimming) +
+//     (8113 * lightModule_2_TriacDimming) +
+//     (4956 * lightModule_2_NonDimming) +
+//     (7434 * lightModule_4_NonDimming) +
+//     (8054 * smartUniversalRemote) +
+//     (3098 * smartUniversalRemoteMini) +
+//     (6195 * smartUniversalRemoteWired) +
+//     (7434 * smartUniversalRemotePlus) +
+//     (12390 * smartUniversalRemotePro) +
+//     (6600 * powerModule) +
+//     (8437 * curtainController2) +
+//     (12980 * curtainController4) +
+//     (3528 * tewlve_V_LEDStripDimmer) +
+//     (7080 * dryContact_NONCModule) +
+// if (And(MAPType = "Glass", customizedText = "yes"), 500, 0) +
+// if (And(MAPType = "Veneer", customizedText = "yes"), 750, 0) +
+// if (And(MAPType = "stone", customizedText = "yes"), 750, 0) +
+// if (And(MAPType = "Glass", customizedIcon_2_perPlate = "yes"), 1000, 0) +
+// if (And(MAPType = "Polycarbonate", customizedIcon_2_perPlate = "yes"), 1000, 0) +
+// if (And(MAPType = "Polycarbonate", customizedIcon_11_perPlate = "yes"), 2000, 0) +
+// if (And(MAPType = "Glass", customizedIcon_11_perPlate = "yes"), 2000, 0) +
+// if (And(border_ColorCustomizationPerPlate = "yes"), 5000, 0) +
+// if (CustomizedVeneer = "yes", 1500, 0)
+
+
+
+// front plate
+//     =if (And(MAPModule = 2, MAPType = "Polycarbonate"), 5428,
+//     if (And(MAPModule = 2, MAPType = "Glass"), 5428,
+//     if (And(MAPModule = 2, MAPType = "Stone"), 8142,
+//     if (And(MAPModule = 2, MAPType = "Veneer"), 8142,
+//     if (And(MAPModule = 3, MAPType = "Polycarbonate"), 6107,
+//     if (And(MAPModule = 3, MAPType = "Glass"), 6107,
+//     if (And(MAPModule = 3, MAPType = "Stone"), 9499,
+//     if (And(MAPModule = 3, MAPType = "Veneer"), 9499,
+//     if (And(MAPModule = 4, MAPType = "Polycarbonate"), 6785,
+//     if (And(MAPModule = 4, MAPType = "Glass"), 6785,
+//     if (And(MAPModule = 4, MAPType = "Stone"), 10856,
+//     if (And(MAPModule = 4, MAPType = "Veneer"), 10856,
+//     if (And(MAPModule = 4, MAPType = "Polycarbonate with Socket"), 6785,
+//     if (And(MAPModule = 8, MAPType = "Polycarbonate"), 8821,
+//     if (And(MAPModule = 8, MAPType = "Glass"), 8821,
+//     if (And(MAPModule = 8, MAPType = "Stone"), 16284,
+//     if (And(MAPModule = 8, MAPType = "Veneer"), 16284,
+//     if (And(MAPModule = 8, MAPType = "Polycarbonate with Socket"), 8821,
+//     if (And(MAPModule = 8, MAPType = "Glass with Socket"), 8821,
+//     if (and(MAPModule = 4, MAPType = "Glass with Socket"), 6785,
+//     if (And(MAPModule = 6, MAPType = "Polycarbonate"), 8142,
+//     if (And(MAPModule = 6, MAPType = "Glass"), 8142,
+//     if (And(MAPModule = 6, MAPType = "Stone"), 13570,
+//     if (And(MAPModule = 6, MAPType = "Veneer"), 13570,
+//     if (And(MAPModule = 6, MAPType = "Polycarbonate with Socket"), 8142,
+//     if (And(MAPModule = 6, MAPType = "Glass with Socket"), 8142,
+// ))))))))))))))))))))))))))
+
+// total
+// =Front plate Selected + Back Module 
