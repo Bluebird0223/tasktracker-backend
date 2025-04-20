@@ -9,7 +9,7 @@ const createQuotation = async (request, response) => {
             sixMPPanaromicCOLORVUFixedBulletnetworkcamara, accessPointTPlink, RJ_45,
             PVCBoxes, hardDisk_2_TB, NVRHikvision_16_channel, speakerCable_90_M,
             HDMICable_10_M, subwooferCable_5_M, alexa, starPoint, lightEngineRGB, installation,totalProductCost,
-            totalInstallationCost,grandTotal,totalNetworkingAndCCTV
+            totalInstallationCost,grandTotal,totalNetworkingAndCCTV,totalCablesCost
         } = request.body;
 
         if (!Array.isArray(MAPRooms) || MAPRooms.length === 0) {

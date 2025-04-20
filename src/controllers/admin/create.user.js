@@ -5,10 +5,10 @@ const { createUserValidationSchema } = require("../../utils/validation/user.vali
 const createAdmin = async (request, response) => {
     try {
         //extract data from request body
-        const { name, email, designation, tabAccess } = request.body;
+        const { name, userType, email, designation, tabAccess } = request.body;
 
         //check validation
-        const validationResult = await createUserValidationSchema.validate({ name, email, designation, tabAccess }, { abortEarly: true });
+        const validationResult = await createUserValidationSchema.validate({ name, userType, email, designation, tabAccess }, { abortEarly: true });
         if (validationResult.error) {
             response.status(200).json({
                 status: "FAILED",
@@ -41,6 +41,7 @@ const createAdmin = async (request, response) => {
             name: name?.toLowerCase(),
             email: email?.toLowerCase(),
             designation: designation?.toLowerCase(),
+            userType: userType?.toLowerCase(),
             tabAccess: [{
                 tabName: "dashboard",
                 access: "write"

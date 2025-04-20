@@ -6,6 +6,11 @@ const adminUserSchema = mongoose.Schema({
         require: true,
         unique: true
     },
+    userType: {
+        type: String,
+        require: false,
+        // enum: ["admin", "user"]
+    },
     email: {
         type: String,
         required: true,
