@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+dotenv.config();
 const { connectToDatabase } = require("./db/db.config");
 const morgan = require("morgan");
 const http = require("http");
@@ -13,7 +14,6 @@ const port = process.env.PORT || 3018;
 //create express app
 const app = express();
 const server = http.createServer(app);
-dotenv.config();
 
 // Middlewares
 app.use(cors({ origin: "*" }));
