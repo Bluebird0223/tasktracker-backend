@@ -39,7 +39,7 @@ const createProject = async (request, response) => {
         };
 
         //insert data into db & send response to client
-        const result = await projectServices.createUser(dataToInsert);
+        const result = await projectServices.createProject(dataToInsert);
         if (result?._id) {
             return response.status(200).json({
                 status: "SUCCESS",
