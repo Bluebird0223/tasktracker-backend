@@ -1,5 +1,5 @@
 const createProject = require('../controllers/project/create-project')
-const { getProjectList } = require('../services/project.service')
+const getProjectList = require('../controllers/project/get-project-list')
 
 const projectRoutes = require('express').Router()
 
