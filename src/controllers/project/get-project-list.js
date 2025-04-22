@@ -12,7 +12,7 @@ const getProjectList = async (request, response) => {
             return response.status(200).json({
                 status: "SUCCESS",
                 message: "User list fetch successfully",
-                ...userList
+                ...projectList
             })
         } else {
             return response.status(200).json({
