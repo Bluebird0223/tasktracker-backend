@@ -6,7 +6,6 @@ const { connectToDatabase } = require("./db/db.config");
 const morgan = require("morgan");
 const http = require("http");
 const path = require("path");
-app.use(cors());
 const routes = require("./src/routes/routes");
 
 //access .env variable
@@ -17,6 +16,7 @@ const app = express();
 const server = http.createServer(app);
 
 // Middlewares
+app.use(cors({ origin: "*" }));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
