@@ -36,23 +36,20 @@ const quotationService = {
             throw error;
         }
     },
-    getQuotationById: async function (quotationId) {
+    getQuotationById: async function (id) {
         try {
-            return await Quotation.findById({_id:new ObjectId(quotationId)});
+            return await Quotation.findById({ _id: new ObjectId(id) });
         } catch (error) {
             throw error;
         }
     },
-    updateQuotation: async function (quotationId, dataToUpdate) {
+    updateQuotation: async function (id, dataToUpdate) {
         try {
-            if (!ObjectId.isValid(quotationId)) {
-                throw new Error("Invalid quotation ID");
-            }
-            const updatedQuotation = await Quotation.findByIdAndUpdate(quotationId, dataToUpdate, { new: true });
-            if (!updatedQuotation) {
-                throw new Error("Quotation not found or update failed");
-            }
-            return updatedQuotation;
+            return await Quotation.findByIdAndUpdate(
+                { _id: new ObjectId(id) },
+                { $set: dataToUpdate },
+                { new: true, runValidators: true }
+            );
         } catch (error) {
             throw error;
         }

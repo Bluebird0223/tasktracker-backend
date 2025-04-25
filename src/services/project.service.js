@@ -19,42 +19,49 @@ const projectServices = {
             throw error;
         }
     },
-    updateUser: async (id, dataToUpdate) => {
+    getProjectById: async function (id) {
         try {
-            return await User.updateOne({ _id: new ObjectId(id) }, { $set: dataToUpdate })
-        } catch (error) {
-            throw error
-        }
-    },
-    getEmployeeByObjectId: async function (id) {
-        try {
-            return await User.findOne({ _id: new ObjectId(id) });
+            return await Project.findOne({ _id: new ObjectId(id) });
         } catch (error) {
             throw error;
         }
     },
-    getUserByNameAndMobile: async function (fullName, phoneNumber) {
+    updateProject: async (id, dataToUpdate) => {
         try {
-            return await User.findOne({ fullName: fullName, phoneNumber: phoneNumber })
+            return await Project.updateOne({ _id: new ObjectId(id) }, { $set: dataToUpdate })
         } catch (error) {
             throw error
         }
     },
-    getLatestCreatedUser: async function () {
+    deleteProject: async (id) => {
         try {
-            const result = await User.find({}).sort({ createdAt: -1 }).limit(1)
-            return result[0]
+            return await Project.deleteOne({ _id: new ObjectId(id) })
         } catch (error) {
             throw error
         }
     },
-    getUserByObjectId: async (id) => {
-        try {
-            return await User.findOne({ _id: new ObjectId(id) });
-        } catch (error) {
-            throw error
-        }
-    },
+    // getUserByNameAndMobile: async function (fullName, phoneNumber) {
+    //     try {
+    //         return await User.findOne({ fullName: fullName, phoneNumber: phoneNumber })
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // },
+    // getLatestCreatedUser: async function () {
+    //     try {
+    //         const result = await User.find({}).sort({ createdAt: -1 }).limit(1)
+    //         return result[0]
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // },
+    // getUserByObjectId: async (id) => {
+    //     try {
+    //         return await User.findOne({ _id: new ObjectId(id) });
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // },
     getProjectList: async (searchString, page = 1) => {
         try {
             let filter = {}

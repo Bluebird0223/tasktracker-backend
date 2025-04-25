@@ -1,7 +1,8 @@
 const { idValidation } = require("../../utils/validation/user.validation");
-const quotationService = require("../../services/quotation.service")
+const quotationService = require("../../services/quotation.service");
+const projectServices = require("../../services/project.service");
 
-const getQuotationById = async (request, response) => {
+const getProjectById = async (request, response) => {
     try {
         // Extract data from request body
         const { id } = request.body;
@@ -9,25 +10,24 @@ const getQuotationById = async (request, response) => {
         //check validation
         const validationResult = await idValidation.validate({ id }, { abortEarly: true });
         if (validationResult.error) {
-            response.status(200).json({
+            return response.status(200).json({
                 status: "FAILED",
                 message: validationResult?.error?.details[0]?.message,
             });
-            return;
         };
 
         // Get data from DB & send response to client
-        const quotation = await quotationService.getQuotationById(id);
-        if (quotation) {
+        const result = await projectServices.getProjectById(id);
+        if (result) {
             return response.status(200).json({
                 status: "SUCCESS",
-                message: "Quotation fetched successfully",
-                quotation
+                message: "Project fetched successfully",
+                result
             });
         } else {
             return response.status(200).json({
                 status: "FAILED",
-                message: "Quotation not found"
+                message: "Project not found"
             });
         }
     } catch (error) {
@@ -38,4 +38,4 @@ const getQuotationById = async (request, response) => {
     }
 }
 
-module.exports = getQuotationById;
+module.exports = getProjectById;

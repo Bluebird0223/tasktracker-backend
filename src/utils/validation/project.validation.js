@@ -13,15 +13,16 @@ exports.createProjectValidationSchema = Joi.object().keys({
     status: Joi.string().required(),
 });
 
-// update employee
-exports.updateEmployeeValidationSchema = Joi.object().keys({
+// update project
+exports.updateProjectValidationSchema = Joi.object().keys({
     id: Joi.string().length(24).required(),
-    fullName: Joi.string().allow("", null).optional(),
-    email: Joi.string().allow("", null).email().optional(),
-    mobile: Joi.string().pattern(/^[0-9]{10}$/).allow("", null).optional().messages({
+    projectName: Joi.string().allow("", null).optional(),
+    companyName: Joi.string().allow("", null).email().optional(),
+    ownerName: Joi.string().allow("", null).email().optional(),
+    ownerNumber: Joi.string().pattern(/^[0-9]{10}$/).allow("", null).optional().messages({
         'string.pattern.base': 'Mobile No must be 10 digit',
     }),
-    birthDate: Joi.string().allow("", null).optional(),
-    location: Joi.string().allow("", null).optional(),
-    role: Joi.string().allow("", null).optional()
+    startDate: Joi.string().allow("", null).optional(),
+    endDate: Joi.string().allow("", null).optional(),
+    status: Joi.string().allow("", null).optional()
 })
