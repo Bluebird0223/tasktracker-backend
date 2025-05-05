@@ -28,7 +28,7 @@ const updateProject = async (request, response) => {
         }
 
 
-        const dataToInsert = {
+        const dataToUpdate = {
             projectName,
             companyName,
             ownerName,
@@ -37,9 +37,8 @@ const updateProject = async (request, response) => {
             endDate,
             status
         };
-
         //insert data into db & send response to client
-        const result = await projectServices.updateProject(id, dataToInsert);
+        const result = await projectServices.updateProject(id, dataToUpdate);
         if (result?.acknowledged && result?.modifiedCount > 0) {
             return response.status(200).json({
                 status: "SUCCESS",

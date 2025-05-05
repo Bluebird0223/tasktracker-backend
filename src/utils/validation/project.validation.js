@@ -10,15 +10,15 @@ exports.createProjectValidationSchema = Joi.object().keys({
     ownerNumber: Joi.string().pattern(/^[0-9]{10}$/).required().messages({
         'string.pattern.base': 'Owner Number must be 10 digit',
     }),
-    status: Joi.string().required(),
+    status: Joi.string().required().valid("pending", "ongoing","completed").default("ongoing")
 });
 
 // update project
 exports.updateProjectValidationSchema = Joi.object().keys({
     id: Joi.string().length(24).required(),
     projectName: Joi.string().allow("", null).optional(),
-    companyName: Joi.string().allow("", null).email().optional(),
-    ownerName: Joi.string().allow("", null).email().optional(),
+    companyName: Joi.string().allow("", null).optional(),
+    ownerName: Joi.string().allow("", null).optional(),
     ownerNumber: Joi.string().pattern(/^[0-9]{10}$/).allow("", null).optional().messages({
         'string.pattern.base': 'Mobile No must be 10 digit',
     }),

@@ -29,15 +29,14 @@ const createProject = async (request, response) => {
 
 
         const dataToInsert = {
-            projectName,
-            companyName,
-            ownerName,
+            projectName: projectName?.toLowerCase(),
+            companyName: companyName?.toLowerCase(),
+            ownerName: ownerName?.toLowerCase(),
             ownerNumber,
             startDate,
             endDate,
-            status
+            status: status?.toLowerCase()
         };
-
         //insert data into db & send response to client
         const result = await projectServices.createProject(dataToInsert);
         if (result?._id) {
