@@ -1,50 +1,49 @@
 const mongoose = require('mongoose');
 
 const roomSchema = new mongoose.Schema({
-    MAPRoom: { type: String, required: true },
-    MAPLights: { type: Number, default: 0 },
-    MAPSwitchBoard: { type: Number, default: 0 },
-    MAPModule: { type: Number, default: 0 },
-    MAPType: { type: String, default: "" },
+    mAPRoom: { type: String, required: true },
+    mAPLights: { type: String, required: false, default: 0 },
+    mAPSwitchBoard: { type: String, required: false, default: 0 },
+    mAPModule: { type: String, required: false, default: 0 },
+    mAPType: { type: String, required: false, default: "" },
+    color: { type: String, required: false },
 
-    powerSupply: { type: Number, default: 0 },
-    ON_OFF: { type: Number, default: 0 },
-    sixteen_A: { type: Number, default: 0 },
-    zemoteDimming: { type: Number, default: 0 },
-    triacDimming: { type: Number, default: 0 },
-    fanDimming: { type: Number, default: 0 },
-    curtain: { type: Number, default: 0 },
-    twoWaySwitchInput: { type: Number, default: 0 },
+    powerSupply: { type: String, required: false, default: 0 },
+    oN_OFF: { type: String, required: false, default: 0 },
+    sixteen_A: { type: String, required: false, default: 0 },
+    zemoteDimming: { type: String, required: false, default: 0 },
+    triacDimming: { type: String, required: false, default: 0 },
+    fanDimming: { type: String, required: false, default: 0 },
+    curtain: { type: String, required: false, default: 0 },
+    twoWaySwitchInput: { type: String, required: false, default: 0 },
 
-    lightFanModule: { type: Number, default: 0 },
-    lightModule_2_ZemoteDimming: { type: Number, default: 0 },
-    lightModule_2_TriacDimming: { type: Number, default: 0 },
-    lightModule_2_NonDimming: { type: Number, default: 0 },
-    lightModule_4_NonDimming: { type: Number, default: 0 },
+    lightFanModule: { type: String, required: false, default: 0 },
+    lightModule_2_ZemoteDimming: { type: String, required: false, default: 0 },
+    lightModule_2_TriacDimming: { type: String, required: false, default: 0 },
+    lightModule_2_NonDimming: { type: String, required: false, default: 0 },
+    lightModule_4_NonDimming: { type: String, required: false, default: 0 },
 
-    smartUniversalRemote: { type: Number, default: 0 },
-    smartUniversalRemoteMini: { type: Number, default: 0 },
-    smartUniversalRemoteWired: { type: Number, default: 0 },
-    smartUniversalRemotePlus: { type: Number, default: 0 },
-    smartUniversalRemotePro: { type: Number, default: 0 },
+    smartUniversalRemote: { type: String, required: false, default: 0 },
+    smartUniversalRemoteMini: { type: String, required: false, default: 0 },
+    smartUniversalRemoteWired: { type: String, required: false, default: 0 },
+    smartUniversalRemotePlus: { type: String, required: false, default: 0 },
+    smartUniversalRemotePro: { type: String, required: false, default: 0 },
 
-    powerModule: { type: Number, default: 0 },
-    curtainController2: { type: Number, default: 0 },
-    curtainController4: { type: Number, default: 0 },
-    tunable_DimmableLEDDriver: { type: Number, default: 0 },
-    RGB_LEDstripController: { type: Number, default: 0 },
-    tewlve_V_LEDStripDimmer: { type: Number, default: 0 },
-    dryContact_NONCModule: { type: Number, default: 0 },
+    powerModule: { type: String, required: false, default: 0 },
+    curtainController2: { type: String, required: false, default: 0 },
+    curtainController4: { type: String, required: false, default: 0 },
+    tewlve_V_LEDStripDimmer: { type: String, required: false, default: 0 },
+    dryContact_NONCModule: { type: String, required: false, default: 0 },
 
-    customizedText: { type: String, default: "no" },
-    customizedIcon_2_perPlate: { type: String, default: "no" },
-    customizedIcon_11_perPlate: { type: String, default: "no" },
-    border_ColorCustomizationPerPlate: { type: String, default: "no" },
-    CustomizedVeneer: { type: String, default: "no" },
+    customizedText: { type: String, required: false, default: "no" },
+    customizedIcon_2_perPlate: { type: String, required: false, default: "no" },
+    customizedIcon_11_perPlate: { type: String, required: false, default: "no" },
+    border_ColorCustomizationPerPlate: { type: String, required: false, default: "no" },
+    CustomizedVeneer: { type: String, required: false, default: "no" },
 
-    backModel: { type: Number, default: 0 },
-    frontPlate: { type: Number, default: 0 },
-    total: { type: Number, default: 0 }
+    backModel: { type: String, default: 0 },
+    frontPlate: { type: String, default: 0 },
+    total: { type: String, default: 0 }
 }, { _id: false });
 
 
@@ -53,61 +52,141 @@ const quotationSchema = mongoose.Schema({
     propertyType: { type: String, required: true },
     client: { type: String, required: true },
     mobile: { type: String, required: true },
-    address: { type: String, required: true },
     quotationDate: { type: Date, required: true },
-    isActive: { type: Boolean, default: true },
+    address: { type: String, required: true },
+    isActive: { type: Boolean,required: false, default: true },
 
     roomDetails: [roomSchema],
 
     // Totals
-    totalBackModel: { type: Number, default: 0 },
-    totalFrontPlate: { type: Number, default: 0 },
-    totalProjectCost: { type: Number, default: 0 },
-    totalTunable_DimmableLEDDriver: { type: Number, default: 0 },
-    totalRGB_LEDstripController: { type: Number, default: 0 },
+    totalBackModel: { type: String, required: false, default: 0 },
+    totalFrontPlate: { type: String, required: false, default: 0 },
+    finalTotal: { type: String, required: false, default: 0 },
 
-    // productDetails
-    lightingMotionSensor: { type: Number, default: 0 },
-    blindTrack: { type: Number, default: 0 },
-    blindMotor: { type: Number, default: 0 },
-    curtainTrack: { type: Number, default: 0 },
-    curtainMotor: { type: Number, default: 0 },
-    totalProductCost: { type: Number, default: 0 },
+
+    // Lighting
+    lightingMotionSensorQuantity: { type: String, required: false, default: 0 },
+    lightingMotionSensorUnitPrice: { type: String, required: false, default: 0 },
+    totalLightingMotionSensor: { type: String, required: false, default: 0 },
+
+    // Blinds
+    blindTrackQuantity: { type: String, required: false, default: 0 },
+    blindTrackUnitPrice: { type: String, required: false, default: 0 },
+    blindTrack: { type: String, required: false, default: 0 },
+
+    blindMotorQuantity: { type: String, required: false, default: 0 },
+    blindMotorUnitPrice: { type: String, required: false, default: 0 },
+    blindMotor: { type: String, required: false, default: 0 },
+
+    totalBlindsCost: { type: String, required: false, default: 0 },
+
+
+    // Curtains
+    curtainTrackQuantity: { type: String, required: false, default: 0 },
+    curtainTrackUnitPrice: { type: String, required: false, default: 0 },
+    curtainTrack: { type: String, required: false, default: 0 },
+
+    curtainMotorQuantity: { type: String, required: false, default: 0 },
+    curtainMotorUnitPrice: { type: String, required: false, default: 0 },
+    curtainMotor: { type: String, required: false, default: 0 },
+
+    totalCurtainsCost: { type: String, required: false, default: 0 },
+
 
     // vdp lock
-    vdpDoorSystem: { type: Number, default: 0 },
+    vdpDoorSystemQuantity: { type: String, required: false, default: 0 },
+    vdpDoorSystemUnitPrice: { type: String, required: false, default: 0 },
+    totalVdpDoorSystem: { type: String, required: false, default: 0 },
 
     // gate lock
-    gateAutomation: { type: Number, default: 0 },
+    gateAutomationQuantity: { type: String, required: false, default: 0 },
+    gateAutomationUnitPrice: { type: String, required: false, default: 0 },
+
+    totalGateAutomation: { type: String, required: false, default: 0 },
+
+    // Drivers
+    Tunable_DimmableLEDDriverQuantity: { type: String, required: false, default: 0 },
+    Tunable_DimmableLEDDriverUnitPrice: { type: String, required: false, default: 0 },
+    Tunable_DimmableLEDDriver: { type: String, required: false, default: 0 },
+
+    RGB_LEDstripControllerQuantity: { type: String, required: false, default: 0 },
+    RGB_LEDstripControllerUnitPrice: { type: String, required: false, default: 0 },
+    RGB_LEDstripController: { type: String, required: false, default: 0 },
+
+    totalDriversCost: { type: String, required: false, default: 0 },
+
 
     //Networking and CCTV
-    sixteenPortPoeHikvision: { type: Number, default: 0 },
-    fourMPCamaraBulletHikvisionColour: { type: Number, default: 0 },
-    sixMPPanaromicCOLORVUFixedBulletnetworkcamara: { type: Number, default: 0 },
-    accessPointTPlink: { type: Number, default: 0 },
-    RJ_45: { type: Number, default: 0 },
-    PVCBoxes: { type: Number, default: 0 },
-    hardDisk_2_TB: { type: Number, default: 0 },
-    NVRHikvision_16_channel: { type: Number, default: 0 },
-    totalNetworkingAndCCTV: { type: Number, default: 0 },
+    sixteenPortPoeHikvisionQuantity: { type: String, required: false, default: 0 },
+    sixteenPortPoeHikvisionUnitPrice: { type: String, required: false, default: 0 },
+    totalSixteenPortPoeHikvision: { type: String, required: false, default: 0 },
+
+    fourMPCamaraBulletHikvisionColourQuantity: { type: String, required: false, default: 0 },
+    fourMPCamaraBulletHikvisionColourUnitPrice: { type: String, required: false, default: 0 },
+    totalFourMPCamaraBulletHikvisionColour: { type: String, required: false, default: 0 },
+
+    sixMPPanaromicCOLORVUFixedBulletnetworkcamaraQuantity: { type: String, required: false, default: 0 },
+    sixMPPanaromicCOLORVUFixedBulletnetworkcamaraUnitPrice: { type: String, required: false, default: 0 },
+    totalSixMPPanaromicCOLORVUFixedBulletnetworkcamara: { type: String, required: false, default: 0 },
+
+    accessPointTPlinkQuantity: { type: String, required: false, default: 0 },
+    accessPointTPlinkUnitPrice: { type: String, required: false, default: 0 },
+    totalAccessPointTPlink: { type: String, required: false, default: 0 },
+
+    rJ_45Quantity: { type: String, required: false, default: 0 },
+    rJ_45UnitPrice: { type: String, required: false, default: 0 },
+    totalRJ_45: { type: String, required: false, default: 0 },
+
+    pVCBoxesQuantity: { type: String, required: false, default: 0 },
+    pVCBoxesUnitPrice: { type: String, required: false, default: 0 },
+    totalPVCBoxes: { type: String, required: false, default: 0 },
+
+    hardDisk_2_TBQuantity: { type: String, required: false, default: 0 },
+    hardDisk_2_TBUnitPrice: { type: String, required: false, default: 0 },
+    totalHardDisk_2_TB: { type: String, required: false, default: 0 },
+
+    nVRHikvision_16_channelQuantity: { type: String, required: false, default: 0 },
+    nVRHikvision_16_channelUnitPrice: { type: String, required: false, default: 0 },
+    totalNVRHikvision_16_channel: { type: String, required: false, default: 0 },
+
+    totalNetworkingAndCCTV: { type: String, required: false, default: 0 },
+
 
     // cables
-    speakerCable_90_M: { type: Number, default: 0 },
-    HDMICable_10_M: { type: Number, default: 0 },
-    subwooferCable_5_M: { type: Number, default: 0 },
-    totalCablesCost: { type: Number, default: 0 },
+    speakerCable_90_MQuantity: { type: String, required: false, default: 0 },
+    speakerCable_90_MUnitPrice: { type: String, required: false, default: 0 },
+    totalSpeakerCable_90_M: { type: String, required: false, default: 0 },
 
-    // MultiAudio /Automation							
-    alexa: { type: Number, default: 0 },
+    hDMICable_10_MQuantity: { type: String, required: false, default: 0 },
+    hDMICable_10_MUnitPrice: { type: String, required: false, default: 0 },
+    totalHDMICable_10_M: { type: String, required: false, default: 0 },
 
-    // installation
-    starPoint: { type: Number, default: 0 },
-    lightEngineRGB: { type: Number, default: 0 },
-    installation: { type: Number, default: 0 },
-    totalInstallationCost: { type: Number, default: 0 },
+    subwooferCable_5_MQuantity: { type: String, required: false, default: 0 },
+    subwooferCable_5_MUnitPrice: { type: String, required: false, default: 0 },
+    totalSubwooferCable_5_M: { type: String, required: false, default: 0 },
+
+    totalCablesCost: { type: String, required: false, default: 0 },
+
+    // Additional Items						
+    alexaQuantity: { type: String, required: false, default: 0 },
+    alexaUnitPrice: { type: String, required: false, default: 0 },
+    totalAlexa: { type: String, required: false, default: 0 },
+
+    starPointQuantity: { type: String, required: false, default: 0 },
+    starPointUnitPrice: { type: String, required: false, default: 0 },
+    totalStarPoint: { type: String, required: false, default: 0 },
+
+    lightEngineRGBQuantity: { type: String, required: false, default: 0 },
+    lightEngineRGBUnitPrice: { type: String, required: false, default: 0 },
+    totalLightEngineRGB: { type: String, required: false, default: 0 },
+
+    installationChargesPercent: { type: String, required: false, default: 0 },
+    totalInstallationCost: { type: String, required: false, default: 0 },
 
     // grand total
-    grandTotal: { type: Number, default: 0 },
+    grandTotalBefore: { type: String, required: false, default: 0 },
+    generalInstallationChargesPercent: { type: String, required: false, default: 0 },
+    grandTotal: { type: String, required: false, default: 0 },
 
 }, {
     timestamps: true,

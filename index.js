@@ -9,7 +9,7 @@ const path = require("path");
 const routes = require("./src/routes/routes");
 
 //access .env variable
-const port = process.env.PORT || 3018;
+const port = process.env.PORT || 3040;
 
 //create express app
 const app = express();

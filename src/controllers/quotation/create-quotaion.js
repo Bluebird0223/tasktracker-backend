@@ -1,124 +1,99 @@
 const quotationService = require("../../services/quotation.service");
-const getFrontPlateCost = require("../../utils/helper/calculate.front.plate");
+// const getFrontPlateCost = require("../../utils/helper/calculate.front.plate");
 
 const createQuotation = async (request, response) => {
     try {
-        const { MAPRooms = [], propertyType, client, mobile, address, quotationDate, lightingMotionSensor,
-            blindTrack, blindMotor, curtainTrack, curtainMotor, vdpDoorSystem, gateAutomation,
-            sixteenPortPoeHikvision, fourMPCamaraBulletHikvisionColour,
-            sixMPPanaromicCOLORVUFixedBulletnetworkcamara, accessPointTPlink, RJ_45,
-            PVCBoxes, hardDisk_2_TB, NVRHikvision_16_channel, speakerCable_90_M,
-            HDMICable_10_M, subwooferCable_5_M, alexa, starPoint, lightEngineRGB, installation,totalProductCost,
-            totalInstallationCost,grandTotal,totalNetworkingAndCCTV,totalCablesCost
-        } = request.body;
+        const {
+            propertyType, client, mobile, quotationDate, address, roomDetails,
 
-        if (!Array.isArray(MAPRooms) || MAPRooms.length === 0) {
-            return response.status(400).json({ status: "FAILED", message: "No room data provided" });
-        }
+            totalBackModel, totalFrontPlate, finalTotal,
 
-        const roomDetails = [];
+            lightingMotionSensorQuantity, lightingMotionSensorUnitPrice, totalLightingMotionSensor,
 
-        for (const room of MAPRooms) {
-            const {
-                MAPRoom = '', MAPLights = 0, MAPSwitchBoard = 0, MAPModule = 4, MAPType = "Glass",
-                powerSupply = 0, ON_OFF = 0, sixteen_A = 0, zemoteDimming = 0, triacDimming = 0,
-                fanDimming = 0, curtain = 0, twoWaySwitchInput = 0, lightFanModule = 0,
-                lightModule_2_ZemoteDimming = 0, lightModule_2_TriacDimming = 0,
-                lightModule_2_NonDimming = 0, lightModule_4_NonDimming = 0,
-                smartUniversalRemote = 0, smartUniversalRemoteMini = 0,
-                smartUniversalRemoteWired = 0, smartUniversalRemotePlus = 0,
-                smartUniversalRemotePro = 0, powerModule = 0, curtainController2 = 0,
-                curtainController4 = 0, tunable_DimmableLEDDriver = 0, RGB_LEDstripController = 0,
-                tewlve_V_LEDStripDimmer = 0, dryContact_NONCModule = 0,
-                customizedText = "no", customizedIcon_2_perPlate = "no", customizedIcon_11_perPlate = "no",
-                border_ColorCustomizationPerPlate = "no", CustomizedVeneer = "no"
-            } = room;
+            blindTrackQuantity, blindTrackUnitPrice, blindTrack,
+            blindMotorQuantity, blindMotorUnitPrice, blindMotor,
+            totalBlindsCost,
 
-            const backModel = (2207 * powerSupply) + (1103 * ON_OFF) + (2207 * sixteen_A) +
-                (1428 * zemoteDimming) + (1817 * triacDimming) + (2142 * fanDimming) +
-                (1817 * curtain) + (649 * twoWaySwitchInput) + (11151 * lightFanModule) +
-                (8113 * lightModule_2_ZemoteDimming) + (8113 * lightModule_2_TriacDimming) +
-                (4956 * lightModule_2_NonDimming) + (7434 * lightModule_4_NonDimming) +
-                (8054 * smartUniversalRemote) + (3098 * smartUniversalRemoteMini) +
-                (6195 * smartUniversalRemoteWired) + (7434 * smartUniversalRemotePlus) +
-                (12390 * smartUniversalRemotePro) + (6600 * powerModule) +
-                (8437 * curtainController2) + (12980 * curtainController4) +
-                (3528 * tewlve_V_LEDStripDimmer) + (7080 * dryContact_NONCModule) +
-                (MAPType === "Glass" && customizedText === "yes" ? 500 : 0) +
-                (MAPType === "Veneer" && customizedText === "yes" ? 750 : 0) +
-                (MAPType === "stone" && customizedText === "yes" ? 750 : 0) +
-                (MAPType === "Glass" && customizedIcon_2_perPlate === "yes" ? 1000 : 0) +
-                (MAPType === "Polycarbonate" && customizedIcon_2_perPlate === "yes" ? 1000 : 0) +
-                (MAPType === "Polycarbonate" && customizedIcon_11_perPlate === "yes" ? 2000 : 0) +
-                (MAPType === "Glass" && customizedIcon_11_perPlate === "yes" ? 2000 : 0) +
-                (border_ColorCustomizationPerPlate === "yes" ? 5000 : 0) +
-                (CustomizedVeneer === "yes" ? 1500 : 0);
+            curtainTrackQuantity, curtainTrackUnitPrice, curtainTrack,
+            curtainMotorQuantity, curtainMotorUnitPrice, curtainMotor,
+            totalCurtainsCost,
 
-            const frontPlate = await getFrontPlateCost(MAPModule, MAPType);
-            const total = backModel + frontPlate;
+            vdpDoorSystemQuantity, vdpDoorSystemUnitPrice, totalVdpDoorSystem,
+            gateAutomationQuantity, gateAutomationUnitPrice, totalGateAutomation,
 
-            roomDetails.push({
-                ...room,
-                backModel,
-                frontPlate,
-                total
-            });
-        }
+            Tunable_DimmableLEDDriverQuantity, Tunable_DimmableLEDDriverUnitPrice, Tunable_DimmableLEDDriver,
+            RGB_LEDstripControllerQuantity, RGB_LEDstripControllerUnitPrice, RGB_LEDstripController,
+            totalDriversCost,
 
-        // Calculate Totals
-        const totalBackModel = roomDetails.reduce((sum, r) => sum + r.backModel, 0);
-        const totalFrontPlate = roomDetails.reduce((sum, r) => sum + r.frontPlate, 0);
-        const totalProjectCost = roomDetails.reduce((sum, r) => sum + r.total, 0);
-        const totalTunable_DimmableLEDDriver = roomDetails.reduce((sum, r) => sum + r.tunable_DimmableLEDDriver, 0);
-        const totalRGB_LEDstripController = roomDetails.reduce((sum, r) => sum + r.RGB_LEDstripController, 0);
-
-        dataToInsert = {
-            propertyType,
-            client,
-            mobile,
-            address,
-            quotationDate,
-            // isActive,
-            MAPRooms: roomDetails,
-            totalBackModel,
-            totalFrontPlate,
-            totalProjectCost,
-            totalTunable_DimmableLEDDriver,
-            totalRGB_LEDstripController,
-
-            lightingMotionSensor,
-            blindTrack,
-            blindMotor,
-            curtainTrack,
-            curtainMotor,
-            totalProductCost,
-
-            vdpDoorSystem,
-            gateAutomation,
-
-            sixteenPortPoeHikvision,
-            fourMPCamaraBulletHikvisionColour,
-            sixMPPanaromicCOLORVUFixedBulletnetworkcamara,
-            accessPointTPlink,
-            RJ_45,
-            PVCBoxes,
-            hardDisk_2_TB,
-            NVRHikvision_16_channel,
+            sixteenPortPoeHikvisionQuantity, sixteenPortPoeHikvisionUnitPrice, totalSixteenPortPoeHikvision,
+            fourMPCamaraBulletHikvisionColourQuantity, fourMPCamaraBulletHikvisionColourUnitPrice, totalFourMPCamaraBulletHikvisionColour,
+            sixMPPanaromicCOLORVUFixedBulletnetworkcamaraQuantity, sixMPPanaromicCOLORVUFixedBulletnetworkcamaraUnitPrice, totalSixMPPanaromicCOLORVUFixedBulletnetworkcamara,
+            accessPointTPlinkQuantity, accessPointTPlinkUnitPrice, totalAccessPointTPlink,
+            rJ_45Quantity, rJ_45UnitPrice, totalRJ_45,
+            pVCBoxesQuantity, pVCBoxesUnitPrice, totalPVCBoxes,
+            hardDisk_2_TBQuantity, hardDisk_2_TBUnitPrice, totalHardDisk_2_TB,
+            nVRHikvision_16_channelQuantity, nVRHikvision_16_channelUnitPrice, totalNVRHikvision_16_channel,
             totalNetworkingAndCCTV,
 
-            speakerCable_90_M,
-            HDMICable_10_M,
-            subwooferCable_5_M,
+            speakerCable_90_MQuantity, speakerCable_90_MUnitPrice, totalSpeakerCable_90_M,
+            hDMICable_10_MQuantity, hDMICable_10_MUnitPrice, totalHDMICable_10_M,
+            subwooferCable_5_MQuantity, subwooferCable_5_MUnitPrice, totalSubwooferCable_5_M,
             totalCablesCost,
 
-            alexa,
+            alexaQuantity, alexaUnitPrice, totalAlexa,
+            starPointQuantity, starPointUnitPrice, totalStarPoint,
+            lightEngineRGBQuantity, lightEngineRGBUnitPrice, totalLightEngineRGB,
 
-            starPoint,
-            lightEngineRGB,
-            installation,
-            totalInstallationCost,
+            installationChargesPercent, totalInstallationCost,
+            grandTotalBefore, generalInstallationChargesPercent, grandTotal
+        } = request.body
 
-            grandTotal
+
+        const dataToInsert = {
+            propertyType, client, mobile, quotationDate, address,
+
+            roomDetails, // Use entire array safely
+
+            totalBackModel, totalFrontPlate, finalTotal,
+
+            lightingMotionSensorQuantity, lightingMotionSensorUnitPrice, totalLightingMotionSensor,
+
+            blindTrackQuantity, blindTrackUnitPrice, blindTrack,
+            blindMotorQuantity, blindMotorUnitPrice, blindMotor,
+            totalBlindsCost,
+
+            curtainTrackQuantity, curtainTrackUnitPrice, curtainTrack,
+            curtainMotorQuantity, curtainMotorUnitPrice, curtainMotor,
+            totalCurtainsCost,
+
+            vdpDoorSystemQuantity, vdpDoorSystemUnitPrice, totalVdpDoorSystem,
+            gateAutomationQuantity, gateAutomationUnitPrice, totalGateAutomation,
+
+            Tunable_DimmableLEDDriverQuantity, Tunable_DimmableLEDDriverUnitPrice, Tunable_DimmableLEDDriver,
+            RGB_LEDstripControllerQuantity, RGB_LEDstripControllerUnitPrice, RGB_LEDstripController,
+            totalDriversCost,
+
+            sixteenPortPoeHikvisionQuantity, sixteenPortPoeHikvisionUnitPrice, totalSixteenPortPoeHikvision,
+            fourMPCamaraBulletHikvisionColourQuantity, fourMPCamaraBulletHikvisionColourUnitPrice, totalFourMPCamaraBulletHikvisionColour,
+            sixMPPanaromicCOLORVUFixedBulletnetworkcamaraQuantity, sixMPPanaromicCOLORVUFixedBulletnetworkcamaraUnitPrice, totalSixMPPanaromicCOLORVUFixedBulletnetworkcamara,
+            accessPointTPlinkQuantity, accessPointTPlinkUnitPrice, totalAccessPointTPlink,
+            rJ_45Quantity, rJ_45UnitPrice, totalRJ_45,
+            pVCBoxesQuantity, pVCBoxesUnitPrice, totalPVCBoxes,
+            hardDisk_2_TBQuantity, hardDisk_2_TBUnitPrice, totalHardDisk_2_TB,
+            nVRHikvision_16_channelQuantity, nVRHikvision_16_channelUnitPrice, totalNVRHikvision_16_channel,
+            totalNetworkingAndCCTV,
+
+            speakerCable_90_MQuantity, speakerCable_90_MUnitPrice, totalSpeakerCable_90_M,
+            hDMICable_10_MQuantity, hDMICable_10_MUnitPrice, totalHDMICable_10_M,
+            subwooferCable_5_MQuantity, subwooferCable_5_MUnitPrice, totalSubwooferCable_5_M,
+            totalCablesCost,
+
+            alexaQuantity, alexaUnitPrice, totalAlexa,
+            starPointQuantity, starPointUnitPrice, totalStarPoint,
+            lightEngineRGBQuantity, lightEngineRGBUnitPrice, totalLightEngineRGB,
+
+            installationChargesPercent, totalInstallationCost,
+            grandTotalBefore, generalInstallationChargesPercent, grandTotal
         };
 
         const result = await quotationService.createQuotation(dataToInsert);
