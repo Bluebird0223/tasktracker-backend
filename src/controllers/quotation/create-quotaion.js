@@ -79,8 +79,12 @@ const createQuotation = async (request, response) => {
             vdpvdpQty,
             vdpvdpPrice,
             generalInstallationCharges,
-            
+
             MAPRooms,
+
+            blindstrackQty,
+            blindstrackPrice,
+            totalBlindstrack,
 
             totalLightingmotion,
             totaladditionalCost,
@@ -201,13 +205,11 @@ const createQuotation = async (request, response) => {
             totalInstallationCost: additionalInstallationCharges,
             grandTotalBefore: totalBeforeInstallation,
             grandTotal: grandTotal,
-            generalInstallationChargesPercent:generalInstallationCharges,
+            generalInstallationChargesPercent: generalInstallationCharges,
 
-
-
-            // blindTrackQuantity,
-            // blindTrackUnitPrice,
-            // blindTrack,
+            blindTrackQuantity: blindstrackQty,
+            blindTrackUnitPrice: blindstrackPrice,
+            blindTrack: totalBlindstrack,
 
             // lightEngineRGBQuantity,
             // lightEngineRGBUnitPrice,
@@ -217,7 +219,7 @@ const createQuotation = async (request, response) => {
 
         console.log(dataToInsert)
         // return
-        
+
 
         const result = await quotationService.createQuotation(dataToInsert);
         if (result?._id) {
