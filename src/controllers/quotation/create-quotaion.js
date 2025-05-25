@@ -1,100 +1,223 @@
-const quotationService = require("../../services/quotation.service");
-// const getFrontPlateCost = require("../../utils/helper/calculate.front.plate");
+const quotationService = require("../../services/quotation.service")
 
 const createQuotation = async (request, response) => {
     try {
         const {
-            propertyType, client, mobile, quotationDate, address, roomDetails,
+            propertyType, quotationDate, address, client, mobile,
 
-            totalBackModel, totalFrontPlate, finalTotal,
+            totalBackProjectCost,
+            totalFrontProjectCost,
+            lightingmotionPrice,
+            lightingmotionQty,
+            blindsblindQty,
+            blindsblindPrice,
+            totalBlindsblind,
+            curtainscurtainPrice,
+            curtainscurtainQty,
+            driversrgbPrice,
+            driversrgbQty,
+            driverstunablePrice,
+            driverstunableQty,
+            gategatePrice,
+            totalDriverstunable,
+            totalGategate,
+            gategateQty,
+            grandTotal,
+            totalCurtainscurtain,
+            totalDriversrgb,
+            totalblindsCost,
+            totalvdpCost,
 
-            lightingMotionSensorQuantity, lightingMotionSensorUnitPrice, totalLightingMotionSensor,
 
-            blindTrackQuantity, blindTrackUnitPrice, blindTrack,
-            blindMotorQuantity, blindMotorUnitPrice, blindMotor,
-            totalBlindsCost,
+            totalAdditionalalexa,
+            cablessubwooferQty,
+            networking4mpPrice,
+            networking4mpQty,
+            additionalstarPrice,
+            additionalstarQty,
+            additionalalexaPrice,
+            additionalalexaQty,
+            cablesspeakerPrice,
+            cablesspeakerQty,
+            cablessubwooferPrice,
+            totalAdditionalstar,
+            networking16Price,
+            networking16Qty,
+            networkingaccessPrice,
+            networkingaccessQty,
+            networkinghardPrice,
+            networkinghardQty,
+            networkingnvrPrice,
+            networkingnvrQty,
+            networkingpvcPrice,
+            networkingpvcQty,
+            networkingrj45Price,
+            networkingrj45Qty,
+            totalCablesspeaker,
+            totalCablessubwoofer,
+            totalNetworking4mp,
+            totalNetworking16,
+            totalNetworkingaccess,
+            totalNetworkinghard,
+            totalNetworkingnvr,
+            totalNetworkingpvc,
+            totalNetworkingrj45,
+            totalProductsCost,
+            totalProjectCost,
+            totalcablesCost,
+            totaldriversCost,
+            totallightingCost,
+            totalnetworkingCost,
+            networking6mpQty,
+            totalBeforeInstallation,
+            additionalInstallationCharges,
+            networking6mpPrice,
+            totalNetworking6mp,
+            cableshdmiQty,
+            cableshdmiPrice,
+            totalCableshdmi,
+            vdpvdpQty,
+            vdpvdpPrice,
+            generalInstallationCharges,
+            
+            MAPRooms,
 
-            curtainTrackQuantity, curtainTrackUnitPrice, curtainTrack,
-            curtainMotorQuantity, curtainMotorUnitPrice, curtainMotor,
-            totalCurtainsCost,
+            totalLightingmotion,
+            totaladditionalCost,
+            totalgateCost,
+            totalcurtainsCost,
+            productTotal,
 
-            vdpDoorSystemQuantity, vdpDoorSystemUnitPrice, totalVdpDoorSystem,
-            gateAutomationQuantity, gateAutomationUnitPrice, totalGateAutomation,
-
-            Tunable_DimmableLEDDriverQuantity, Tunable_DimmableLEDDriverUnitPrice, Tunable_DimmableLEDDriver,
-            RGB_LEDstripControllerQuantity, RGB_LEDstripControllerUnitPrice, RGB_LEDstripController,
-            totalDriversCost,
-
-            sixteenPortPoeHikvisionQuantity, sixteenPortPoeHikvisionUnitPrice, totalSixteenPortPoeHikvision,
-            fourMPCamaraBulletHikvisionColourQuantity, fourMPCamaraBulletHikvisionColourUnitPrice, totalFourMPCamaraBulletHikvisionColour,
-            sixMPPanaromicCOLORVUFixedBulletnetworkcamaraQuantity, sixMPPanaromicCOLORVUFixedBulletnetworkcamaraUnitPrice, totalSixMPPanaromicCOLORVUFixedBulletnetworkcamara,
-            accessPointTPlinkQuantity, accessPointTPlinkUnitPrice, totalAccessPointTPlink,
-            rJ_45Quantity, rJ_45UnitPrice, totalRJ_45,
-            pVCBoxesQuantity, pVCBoxesUnitPrice, totalPVCBoxes,
-            hardDisk_2_TBQuantity, hardDisk_2_TBUnitPrice, totalHardDisk_2_TB,
-            nVRHikvision_16_channelQuantity, nVRHikvision_16_channelUnitPrice, totalNVRHikvision_16_channel,
-            totalNetworkingAndCCTV,
-
-            speakerCable_90_MQuantity, speakerCable_90_MUnitPrice, totalSpeakerCable_90_M,
-            hDMICable_10_MQuantity, hDMICable_10_MUnitPrice, totalHDMICable_10_M,
-            subwooferCable_5_MQuantity, subwooferCable_5_MUnitPrice, totalSubwooferCable_5_M,
-            totalCablesCost,
-
-            alexaQuantity, alexaUnitPrice, totalAlexa,
-            starPointQuantity, starPointUnitPrice, totalStarPoint,
-            lightEngineRGBQuantity, lightEngineRGBUnitPrice, totalLightEngineRGB,
-
-            installationChargesPercent, totalInstallationCost,
-            grandTotalBefore, generalInstallationChargesPercent, grandTotal
         } = request.body
+
+        // check if already exist with name and mobile
+        const isExist = await quotationService.getQuotationByNameAndMobile(client, mobile)
+        if (isExist) {
+            return response.status(200).json({
+                status: "FAILED",
+                message: "Quotation already exist"
+            })
+        }
 
 
         const dataToInsert = {
             propertyType, client, mobile, quotationDate, address,
 
-            roomDetails, // Use entire array safely
+            roomDetails: MAPRooms, // Use entire array safely
+            totalBackModel: totalBackProjectCost,
+            totalFrontPlate: totalFrontProjectCost,
+            finalTotal: totalProjectCost,
 
-            totalBackModel, totalFrontPlate, finalTotal,
+            lightingMotionSensorQuantity: lightingmotionQty,
+            lightingMotionSensorUnitPrice: lightingmotionPrice,
+            totalLightingMotionSensor: totallightingCost,
 
-            lightingMotionSensorQuantity, lightingMotionSensorUnitPrice, totalLightingMotionSensor,
+            blindMotorQuantity: blindsblindQty,
+            blindMotorUnitPrice: blindsblindPrice,
+            blindMotor: totalBlindsblind,
+            totalBlindsCost: totalblindsCost,
 
-            blindTrackQuantity, blindTrackUnitPrice, blindTrack,
-            blindMotorQuantity, blindMotorUnitPrice, blindMotor,
-            totalBlindsCost,
+            curtainTrackQuantity: curtainscurtainQty,
+            curtainTrackUnitPrice: curtainscurtainPrice,
+            curtainTrack: totalCurtainscurtain,
 
-            curtainTrackQuantity, curtainTrackUnitPrice, curtainTrack,
-            curtainMotorQuantity, curtainMotorUnitPrice, curtainMotor,
-            totalCurtainsCost,
+            curtainMotorQuantity: curtainscurtainQty,
+            curtainMotorUnitPrice: curtainscurtainPrice,
+            curtainMotor: totalCurtainscurtain,
+            totalCurtainsCost: totalProductsCost,
 
-            vdpDoorSystemQuantity, vdpDoorSystemUnitPrice, totalVdpDoorSystem,
-            gateAutomationQuantity, gateAutomationUnitPrice, totalGateAutomation,
+            vdpDoorSystemQuantity: vdpvdpQty,
+            vdpDoorSystemUnitPrice: vdpvdpPrice,
+            totalVdpDoorSystem: totalvdpCost,
 
-            Tunable_DimmableLEDDriverQuantity, Tunable_DimmableLEDDriverUnitPrice, Tunable_DimmableLEDDriver,
-            RGB_LEDstripControllerQuantity, RGB_LEDstripControllerUnitPrice, RGB_LEDstripController,
-            totalDriversCost,
+            gateAutomationQuantity: gategateQty,
+            gateAutomationUnitPrice: gategatePrice,
+            totalGateAutomation: totalGategate,
 
-            sixteenPortPoeHikvisionQuantity, sixteenPortPoeHikvisionUnitPrice, totalSixteenPortPoeHikvision,
-            fourMPCamaraBulletHikvisionColourQuantity, fourMPCamaraBulletHikvisionColourUnitPrice, totalFourMPCamaraBulletHikvisionColour,
-            sixMPPanaromicCOLORVUFixedBulletnetworkcamaraQuantity, sixMPPanaromicCOLORVUFixedBulletnetworkcamaraUnitPrice, totalSixMPPanaromicCOLORVUFixedBulletnetworkcamara,
-            accessPointTPlinkQuantity, accessPointTPlinkUnitPrice, totalAccessPointTPlink,
-            rJ_45Quantity, rJ_45UnitPrice, totalRJ_45,
-            pVCBoxesQuantity, pVCBoxesUnitPrice, totalPVCBoxes,
-            hardDisk_2_TBQuantity, hardDisk_2_TBUnitPrice, totalHardDisk_2_TB,
-            nVRHikvision_16_channelQuantity, nVRHikvision_16_channelUnitPrice, totalNVRHikvision_16_channel,
-            totalNetworkingAndCCTV,
+            Tunable_DimmableLEDDriverQuantity: driverstunableQty,
+            Tunable_DimmableLEDDriverUnitPrice: driverstunablePrice,
+            Tunable_DimmableLEDDriver: totalDriverstunable,
 
-            speakerCable_90_MQuantity, speakerCable_90_MUnitPrice, totalSpeakerCable_90_M,
-            hDMICable_10_MQuantity, hDMICable_10_MUnitPrice, totalHDMICable_10_M,
-            subwooferCable_5_MQuantity, subwooferCable_5_MUnitPrice, totalSubwooferCable_5_M,
-            totalCablesCost,
+            RGB_LEDstripControllerQuantity: driversrgbQty,
+            RGB_LEDstripControllerUnitPrice: driversrgbPrice,
+            RGB_LEDstripController: totalDriversrgb,
+            totalDriversCost: totaldriversCost,
 
-            alexaQuantity, alexaUnitPrice, totalAlexa,
-            starPointQuantity, starPointUnitPrice, totalStarPoint,
-            lightEngineRGBQuantity, lightEngineRGBUnitPrice, totalLightEngineRGB,
+            alexaQuantity: additionalalexaQty,
+            alexaUnitPrice: additionalalexaPrice,
+            totalAlexa: totalAdditionalalexa,
 
-            installationChargesPercent, totalInstallationCost,
-            grandTotalBefore, generalInstallationChargesPercent, grandTotal
+            starPointQuantity: additionalstarQty,
+            starPointUnitPrice: additionalstarPrice,
+            totalStarPoint: totalAdditionalstar,
+
+            speakerCable_90_MQuantity: cablesspeakerQty,
+            speakerCable_90_MUnitPrice: cablesspeakerPrice,
+            totalSpeakerCable_90_M: totalCablesspeaker,
+
+            hDMICable_10_MQuantity: cableshdmiQty,
+            hDMICable_10_MUnitPrice: cableshdmiPrice,
+            totalHDMICable_10_M: totalCableshdmi,
+
+            subwooferCable_5_MQuantity: cablessubwooferQty,
+            subwooferCable_5_MUnitPrice: cablessubwooferPrice,
+            totalSubwooferCable_5_M: totalCablessubwoofer,
+            totalCablesCost: totalcablesCost,
+
+            sixteenPortPoeHikvisionQuantity: networking16Qty,
+            sixteenPortPoeHikvisionUnitPrice: networking16Price,
+            totalSixteenPortPoeHikvision: totalNetworking16,
+
+            fourMPCamaraBulletHikvisionColourQuantity: networking4mpQty,
+            fourMPCamaraBulletHikvisionColourUnitPrice: networking4mpPrice,
+            totalFourMPCamaraBulletHikvisionColour: totalNetworking4mp,
+
+            sixMPPanaromicCOLORVUFixedBulletnetworkcamaraQuantity: networking6mpQty,
+            sixMPPanaromicCOLORVUFixedBulletnetworkcamaraUnitPrice: networking6mpPrice,
+            totalSixMPPanaromicCOLORVUFixedBulletnetworkcamara: totalNetworking6mp,
+
+            accessPointTPlinkQuantity: networkingaccessQty,
+            accessPointTPlinkUnitPrice: networkingaccessPrice,
+            totalAccessPointTPlink: totalNetworkingaccess,
+
+            rJ_45Quantity: networkingrj45Qty,
+            rJ_45UnitPrice: networkingrj45Price,
+            totalRJ_45: totalNetworkingrj45,
+
+            pVCBoxesQuantity: networkingpvcQty,
+            pVCBoxesUnitPrice: networkingpvcPrice,
+            totalPVCBoxes: totalNetworkingpvc,
+
+            hardDisk_2_TBQuantity: networkinghardQty,
+            hardDisk_2_TBUnitPrice: networkinghardPrice,
+            totalHardDisk_2_TB: totalNetworkinghard,
+
+            nVRHikvision_16_channelQuantity: networkingnvrQty,
+            nVRHikvision_16_channelUnitPrice: networkingnvrPrice,
+            totalNVRHikvision_16_channel: totalNetworkingnvr,
+            totalNetworkingAndCCTV: totalnetworkingCost,
+
+            installationChargesPercent: additionalInstallationCharges,
+            totalInstallationCost: additionalInstallationCharges,
+            grandTotalBefore: totalBeforeInstallation,
+            grandTotal: grandTotal,
+            generalInstallationChargesPercent:generalInstallationCharges,
+
+
+
+            // blindTrackQuantity,
+            // blindTrackUnitPrice,
+            // blindTrack,
+
+            // lightEngineRGBQuantity,
+            // lightEngineRGBUnitPrice,
+            // totalLightEngineRGB,
+
         };
+
+        console.log(dataToInsert)
+        // return
+        
 
         const result = await quotationService.createQuotation(dataToInsert);
         if (result?._id) {

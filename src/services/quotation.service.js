@@ -67,6 +67,14 @@ const quotationService = {
         } catch (error) {
             throw error;
         }
+    },
+    getQuotationByNameAndMobile: async function (name, mobile) {
+        try {
+            return await Quotation.findOne({ client: name, mobile: mobile })
+        } catch (error) {
+            throw error
+        }
+
     }
 };
 
