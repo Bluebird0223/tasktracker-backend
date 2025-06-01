@@ -3,8 +3,6 @@ const User = require("../models/admin.user.model");
 const countPages = require("../../helper/count-pages");
 const limit = Number(process.env.LIMIT) ?? 20
 
-
-
 const userServices = {
     createUser: async function (dataToInsert) {
         try {
