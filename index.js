@@ -17,7 +17,10 @@ const server = http.createServer(app);
 
 // Middlewares
 app.use(cors({
-    origin: true, // allows all origins
+    origin: [
+        'https://tasktracker-frontend-x2io.vercel.app',
+        'http://localhost:3000'  // for local development
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
