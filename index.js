@@ -16,7 +16,12 @@ const app = express();
 const server = http.createServer(app);
 
 // Middlewares
-app.use(cors({ origin: "*" }));
+app.use(cors({
+    origin: true, // allows all origins
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
