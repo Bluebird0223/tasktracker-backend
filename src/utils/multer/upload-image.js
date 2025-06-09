@@ -9,7 +9,7 @@ const multerStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         const path = "./public/image/";  // file added to the public folder of the root directory
         if (!fs.existsSync(path)) {
-            fs.mkdirSync(path)
+            fs.mkdirSync(path, { recursive: true });
         }
         cb(null, path)
     },
