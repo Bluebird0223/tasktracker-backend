@@ -7,6 +7,7 @@ const uploadImage = require("../../utils/multer/upload-image");
 const createProduct = async (request, response) => {
     try {
 
+        console.log("here")
         // Upload document
         const fileResponse = await runMiddleware(request, response, uploadImage.single("attachment"));
         if (fileResponse) {
@@ -18,6 +19,7 @@ const createProduct = async (request, response) => {
 
         const data = JSON.parse(request.body.data)
         const { name, description, unitPrice, quantity } = data;
+         console.log("here",data)
         // check validation
         const validationResult = await productValidationSchema.validate({ name, description, unitPrice, quantity }, { abortEarly: true })
         if (validationResult?.error) {
