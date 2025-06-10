@@ -9,7 +9,7 @@
     "start": "node index.js",
     "build": "next build"
   },
-  "author": "naitik ramteke : ramteke4101971@gmail.com",
+  "author": "naitik ramteke",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
