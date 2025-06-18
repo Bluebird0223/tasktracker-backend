@@ -20,7 +20,8 @@ const server = http.createServer(app);
 
 const allowedOrigins = [
   "https://tasktracker-frontend-x2io-g9xihpblw-blubrds-projects.vercel.app",
-  "http://localhost:3000"
+  "http://localhost:3000",
+  "https://tasktracker-backend-self.vercel.app"
   // Add other frontend URLs you trust, e.g. staging, prod, local frontend if needed
 ];
 
