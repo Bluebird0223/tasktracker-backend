@@ -16,7 +16,25 @@ const app = express();
 const server = http.createServer(app);
 
 // Middlewares
-app.use(cors({ origin: "*" }))
+// app.use(cors({ origin: "*" }))
+
+const allowedOrigins = [
+  "https://tasktracker-frontend-x2io-g9xihpblw-blubrds-projects.vercel.app",
+  // Add other frontend URLs you trust, e.g. staging, prod, local frontend if needed
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // Allow tools like Postman, curl
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true // If you need cookies / auth headers
+}));
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
