@@ -13,10 +13,10 @@ const port = process.env.PORT || 3040;
 
 //create express app
 const app = express();
+app.use(cors({ origin: "*" }))
 const server = http.createServer(app);
 
 // Middlewares
-app.use(cors({ origin: "*" }))
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
